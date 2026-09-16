@@ -20,8 +20,10 @@ function openInvitation() {
 </script>
 
 <template>
-  <OpeningOverlay v-if="!opened" @open="openInvitation" />
-  <main v-else>
+  <Transition name="envelope">
+    <OpeningOverlay v-if="!opened" @open="openInvitation" />
+  </Transition>
+  <main v-if="opened" class="main-content">
     <HeroSection />
     <CoupleSection />
     <QuoteSection />
@@ -32,3 +34,21 @@ function openInvitation() {
     <ClosingSection />
   </main>
 </template>
+
+<style scoped>
+.envelope-leave-active {
+  transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1), opacity 1.2s ease;
+  z-index: 60;
+}
+.envelope-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.main-content {
+  animation: fadeIn 1s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
