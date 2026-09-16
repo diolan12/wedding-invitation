@@ -51,7 +51,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
           aria-controls="map-choice"
           @click="open = !open"
         >
-          <span aria-hidden="true">⌖</span> Lihat Lokasi
+          <span aria-hidden="true">⌖</span> Lihat Lokasi <span aria-hidden="true">⌖</span>
         </button>
       </div>
     </div>
