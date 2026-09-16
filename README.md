@@ -2,6 +2,26 @@
 
 Undangan pernikahan online yang elegan, dibuat dengan **Vue 3 + Vite** (JavaScript murni), siap di-deploy ke **GitHub Pages** via `gh-pages`.
 
+### Built with
+
+![Antigravity](https://img.shields.io/badge/Antigravity-1188ff)
+![Big Pickle](https://img.shields.io/badge/Big%20Pickle-7c3aed)
+![ChatGPT](https://img.shields.io/badge/ChatGPT-10a37f)
+![Claude](https://img.shields.io/badge/Claude-d97757)
+
+![Vue 3](https://img.shields.io/badge/Vue%203-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=flat&logo=github&logoColor=white)
+
+![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat&logo=github)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg?style=flat&logo=github)
+![Maintained](https://img.shields.io/badge/maintained-yes-green.svg?style=flat&logo=github)
+![Fork](https://img.shields.io/badge/fork-yes-blue.svg?style=flat&logo=github)
+![Star](https://img.shields.io/badge/star-yes-yellow.svg?style=flat&logo=github)
+![Forked](https://img.shields.io/badge/forked-yes-green.svg?style=flat&logo=github)
+![Contribute](https://img.shields.io/badge/contribute-yes-green.svg?style=flat&logo=github)
+
+
 ```
 ├── public/
 │   ├── favicon.svg
