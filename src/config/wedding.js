@@ -42,7 +42,7 @@ export const WEDDING = {
   //   public/images/bride.jpg
   // (the site falls back to a monogram placeholder if the file is missing)
   images: {
-    groom: 'images/Gemini_Generated_Image_xzpgsbxzpgsbxzpg.jpeg',
-    bride: 'images/Gemini_Generated_Image_ujnpuqujnpuqujnp.jpeg'
+    groom: 'images/groom.jpg',
+    bride: 'images/bride.jpg'
   }
 }
