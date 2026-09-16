@@ -7,16 +7,23 @@ const target = new Date(WEDDING.dateISO).getTime()
 
 const now = ref(Date.now())
 let timer = null
+const openModal = ref(false)
 
 onMounted(() => {
   timer = setInterval(() => {
     now.value = Date.now()
   }, 1000)
+  document.addEventListener('keydown', onKeydown)
 })
 
 onUnmounted(() => {
   clearInterval(timer)
+  document.removeEventListener('keydown', onKeydown)
 })
+
+function onKeydown(event) {
+  if (event.key === 'Escape') openModal.value = false
+}
 
 const finished = computed(() => target - now.value <= 0)
 
@@ -37,6 +44,45 @@ const units = [
   { key: 'minutes', label: 'Menit' },
   { key: 'seconds', label: 'Detik' }
 ]
+
+// --- CALENDAR GENERATORS ---
+const eventTitle = encodeURIComponent('Pernikahan Dio & Ayin')
+const eventDetails = encodeURIComponent('Acara Pernikahan Dio & Ayin. Terima kasih telah berkenan hadir dan mendoakan kami.')
+const eventLocation = encodeURIComponent(`${WEDDING.location.name}, ${WEDDING.location.region}`)
+
+// Dates formatting for Google/Outlook (UTC format: YYYYMMDDTHHMMSSZ)
+const startDate = new Date(WEDDING.dateISO)
+const endDate = new Date(startDate.getTime() + 4 * 60 * 60 * 1000) // Default 4 jam durasi
+
+const formatIsoUtc = (date) => date.toISOString().replace(/-|:|\.\d+/g, '')
+
+const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${formatIsoUtc(startDate)}/${formatIsoUtc(endDate)}&details=${eventDetails}&location=${eventLocation}`
+const outlookCalUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${eventTitle}&startdt=${startDate.toISOString()}&enddt=${endDate.toISOString()}&body=${eventDetails}&location=${eventLocation}`
+
+// Generate ICS file download dynamically for Apple Calendar / Native devices
+function downloadIcs() {
+  const icsData = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Wedding Invitation//EN',
+    'BEGIN:VEVENT',
+    `SUMMARY:Pernikahan Dio & Ayin`,
+    `DESCRIPTION:Acara Pernikahan Dio & Ayin.`,
+    `LOCATION:${WEDDING.location.name}, ${WEDDING.location.region}`,
+    `DTSTART:${formatIsoUtc(startDate)}`,
+    `DTEND:${formatIsoUtc(endDate)}`,
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n')
+
+  const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' })
+  const link = document.createElement('a')
+  link.href = window.URL.createObjectURL(blob)
+  link.setAttribute('download', 'wedding-dio-ayin.ics')
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
 </script>
 
 <template>
@@ -51,21 +97,64 @@ const units = [
         </div>
 
         <div v-else class="countdown-clock">
-          <div v-for="(unit, index) in units" :key="unit.key" class="clock-unit">
-            <span class="clock-number">{{ parts[unit.key] }}</span>
-            <span class="clock-label">{{ unit.label }}</span>
-          </div>
-          <span
-            v-for="index in 3"
-            :key="'sep-' + index"
-            class="clock-sep"
-            aria-hidden="true"
+          <template v-for="(unit, index) in units" :key="unit.key">
+            <div class="clock-unit">
+              <span class="clock-number">{{ parts[unit.key] }}</span>
+              <span class="clock-label">{{ unit.label }}</span>
+            </div>
+
+            <span
+              v-if="index < units.length - 1"
+              class="clock-sep"
+              aria-hidden="true"
+            >
+              :
+            </span>
+          </template>
+        </div>
+
+        <!-- Tombol Tambah ke Kalender -->
+        <div class="calendar-action">
+          <button
+            class="btn btn-gold calendar-btn"
+            type="button"
+            :aria-expanded="openModal"
+            aria-controls="calendar-choice"
+            @click="openModal = true"
           >
-            :
-          </span>
+            <span aria-hidden="true">⌖</span> Simpan Tanggal <span aria-hidden="true">⌖</span>
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- Modal Chooser Platform Kalender -->
+    <Transition name="fade">
+      <div v-if="openModal" id="calendar-choice" class="modal">
+        <div class="modal-backdrop" @click="openModal = false"></div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cal-modal-title">
+          <button class="modal-close" type="button" @click="openModal = false" aria-label="Tutup">
+            ×
+          </button>
+          <p class="modal-kicker">Ingat Tanggal Acara</p>
+          <p id="cal-modal-title" class="modal-title">
+            Tambahkan ke Kalender Kamu
+          </p>
+
+          <div class="modal-actions-grid">
+            <a class="btn btn-gold" :href="googleCalUrl" target="_blank" rel="noopener noreferrer">
+              Google Calendar
+            </a>
+            <a class="btn btn-ghost" :href="outlookCalUrl" target="_blank" rel="noopener noreferrer">
+              Outlook / Microsoft
+            </a>
+            <button class="btn btn-ghost" type="button" @click="downloadIcs">
+              Apple Calendar / iCal (.ics)
+            </button>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </section>
 </template>
 
@@ -119,7 +208,24 @@ const units = [
   font-size: clamp(1.6rem, 6vw, 2.4rem);
   color: var(--gold);
   opacity: 0.7;
-  transform: translateY(-0.45em);
+  align-self: flex-start;
+  margin-top: 0.2em;
+}
+
+.calendar-action {
+  margin-top: 1.8rem;
+}
+
+.calendar-btn {
+  min-height: 3rem;
+  padding: 0.7rem 2rem;
+}
+
+.modal-actions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 }
 
 .countdown-done {
