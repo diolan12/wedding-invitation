@@ -1,0 +1,291 @@
+/* ==================================================================
+   GLOBAL DESIGN SYSTEM — tokens, base, shared section & button styles
+   ================================================================== */
+
+:root {
+  /* Palette — deep navy identity */
+  --navy-950: #040d1f;
+  --navy-900: #071a3a; /* deep navy   */
+  --navy-800: #0b2854; /* dark blue   */
+  --navy-700: #163d73; /* muted blue  */
+  --ivory: #f7f4ed; /* ivory       */
+  --warm: #fcfaf5; /* warm white  */
+  --gold: #c9ad70; /* muted gold  */
+  --gold-light: #e3cba0;
+  --gold-deep: #9c8147;
+
+  /* Text colours on dark backgrounds */
+  --text-strong: #f7f4ed;
+  --text-soft: #ccd4e1;
+  --text-muted: #93a1b8;
+  --text-navy: #0b2854;
+
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-arabic: 'Amiri', 'Traditional Arabic', serif;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ---------- Reset & base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  background: var(--navy-900);
+  color: var(--text-strong);
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--navy-900);
+}
+
+/* ---------- Shared layout ---------- */
+.container {
+  width: min(100% - 2.5rem, 62rem);
+  margin-inline: auto;
+}
+
+.container-narrow {
+  width: min(100% - 2.5rem, 46rem);
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding: clamp(4.5rem, 11vw, 7.5rem) 0;
+}
+
+section[id] {
+  scroll-margin-top: 0.5rem;
+}
+
+/* ---------- Section headings ---------- */
+.section-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.38em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 7vw, 2.9rem);
+  line-height: 1.15;
+  margin-top: 0.6rem;
+}
+
+/* Star divider used under titles */
+.star-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.1rem;
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+
+.star-divider::before,
+.star-divider::after {
+  content: '';
+  height: 1px;
+  width: 3rem;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  opacity: 0.55;
+}
+
+.star-divider::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.6rem 1.9rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease),
+    border-color 0.3s var(--ease), transform 0.2s var(--ease);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy-900);
+}
+
+.btn-gold:hover {
+  background: var(--gold-light);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--navy-800);
+  border-color: rgba(11, 40, 84, 0.5);
+}
+
+.btn-ghost:hover {
+  background: rgba(11, 40, 84, 0.08);
+  border-color: var(--navy-800);
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Focus states ---------- */
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+/* ---------- Modal (used by LocationSection) ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 13, 31, 0.72);
+  backdrop-filter: blur(3px);
+}
+
+.modal-card {
+  position: relative;
+  width: min(100%, 24rem);
+  background: var(--warm);
+  color: var(--text-navy);
+  border-radius: 6px;
+  padding: 2rem 1.6rem 1.8rem;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.4rem;
+}
+
+.modal-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.66rem;
+  color: var(--gold-deep);
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0.5rem 0 1.6rem;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.modal-actions .btn {
+  width: 100%;
+}
+
+/* fade transition for the modal */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.28s var(--ease);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

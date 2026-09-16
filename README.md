@@ -1,48 +1,157 @@
-# wedding-invitation
+# Wedding Invitation — Dio & Indriyani
 
-This template should help get you started developing with Vue 3 in Vite.
+Undangan pernikahan online yang elegan, dibuat dengan **Vue 3 + Vite** (JavaScript murni), stap di-deploy ke **GitHub Pages** via `gh-pages`.
 
-## Recommended IDE Setup
+```
+├── public/
+│   ├── favicon.svg
+│   └── images/
+│       ├── groom.jpg              ← ganti dengan foto asli
+│       ├── bride.jpg              ← ganti dengan foto asli
+│       └── placeholder-*.svg      ← fallback otomatis jika foto belum ada
+├── src/
+│   ├── components/                ← 1 komponen per bagian
+│   ├── config/wedding.js          ← SEMUA data pernikahan ada di sini
+│   ├── utils/asset.js
+│   ├── App.vue
+│   ├── main.js
+│   └── style.css                  ← design system global
+├── index.html
+├── package.json
+└── vite.config.js                 ← base path GitHub Pages
+```
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 1. Persiapan
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Prasyarat: **Node.js 18+** dan **npm** sudah terpasang.
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## 2. Menjalankan di lokal
 
-```sh
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Buka `http://localhost:5173` di browser. Perubahan kode langsung terlihat (hot reload).
 
-```sh
+## 3. Mengganti foto
+
+Letakkan foto pasangan pada:
+
+```text
+public/images/groom.jpg
+public/images/bride.jpg
+```
+
+Rasio yang disarankan **4 : 5** (portrait). Jika file belum ada, situs otomatis menampilkan placeholder monogram elegan. Format **WebP/JPEG** yang teroptimasi lebih disukai untuk kecepatan.
+
+## 4. Mengedit data pernikahan
+
+Semua data terpusat di **`src/config/wedding.js`**:
+
+```js
+export const WEDDING = {
+  groom: 'Dio Lantief Widoyoko',
+  bride: 'Indriyani',
+  dateISO: '2026-12-23T10:00:00+07:00', // target countdown (WIB)
+  akad: '10.00 WIB',
+  location: {
+    name: 'Sempu, Banyuwangi',
+    latitude: -8.3275614,
+    longitude: 114.1877941
+  },
+  maps: { google: 'https://maps.app.goo.gl/...' },
+  images: { groom: 'images/groom.jpg', bride: 'images/bride.jpg' }
+}
+```
+
+Yang bisa diubah tanpa menyentuh komponen: nama, tanggal, waktu akad, lokasi, koordinat peta, foto, dan warna (di `src/style.css` / `:root`).
+
+> Nama orang tua sengaja **tidak diisi**. Ganti teks placeholder
+> "Nama Orang Tua Mempelai Pria/Wanita" pada `src/components/CoupleSection.vue`.
+
+## 5. Mengubah nama repository GitHub Pages
+
+`vite.config.js` memakai base path sesuai nama repository:
+
+```js
+const REPOSITORY_NAME = 'wedding-invitation'
+```
+
+Jika repository-mu bernama lain, **wajib** disesuaikan. Contoh:
+
+```text
+repo:  https://github.com/username/my-wedding
+base:  '/my-wedding/'
+```
+
+## 6. Build produksi
+
+```bash
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Hasil build ada di folder `dist/` dan dapat dicek dengan:
 
-```sh
-npm run test:unit
+```bash
+npm run preview
 ```
+
+## 7. Deploy ke GitHub Pages
+
+```bash
+npm run deploy
+```
+
+Script ini menjalankan `vite build`, kemudian mem-publish isi `dist/` ke branch **`gh-pages`** via package `gh-pages`.
+
+Pengaturan repository (sekali saja):
+
+1. Buka **Settings → Pages** di repository GitHub.
+2. **Source** pilih **Deploy from a branch**.
+3. **Branch** pilih **`gh-pages`** dan folder **`/ (root)`**, lalu **Save**.
+
+Situs akan tersedia di:
+
+```text
+https://username.github.io/wedding-invitation/
+```
+
+## 8. Link undangan personal (untuk tamu)
+
+Tambahkan parameter `?to=` pada URL. Parameter dibaca dengan
+`new URLSearchParams(window.location.search)` dan dirender sebagai teks polos
+(aman — tidak diinterpretasikan sebagai HTML).
+
+```text
+https://username.github.io/wedding-invitation/?to=Andi%20Pratama
+https://username.github.io/wedding-invitation/?to=Bapak%20%26%20Ibu%20Santoso
+https://username.github.io/wedding-invitation/?to=Keluarga%20Widoyoko
+```
+
+Tanpa parameter `to`, situs menampilkan **"Bapak/Ibu/Saudara/i"**.
+
+Catatan: karena `npm run dev` memakai base `/wedding-invitation/`, saat menjalankan
+di lokal cukup buka `http://localhost:5173/?to=Andi%20Pratama` — Vue membaca
+`window.location.search` sehingga tetap berfungsi.
+
+---
+
+### Struktur komponen
+
+| Bagian            | Komponen                |
+| ----------------- | ----------------------- |
+| Pembuka           | `OpeningOverlay.vue`    |
+| Hero              | `HeroSection.vue`       |
+| Undangan/Mempelai | `CoupleSection.vue`     |
+| Ayat Al-Qur'an    | `QuoteSection.vue`      |
+| Acara             | `EventSection.vue`      |
+| Lokasi & Peta     | `LocationSection.vue`   |
+| Hitung Mundur     | `CountdownSection.vue`  |
+| Nama Tamu         | `GuestSection.vue`      |
+| Penutup           | `ClosingSection.vue`    |
