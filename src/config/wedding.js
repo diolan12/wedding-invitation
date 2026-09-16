@@ -5,7 +5,9 @@
 
 export const WEDDING = {
   groom: 'Dio Lantief Widoyoko',
+  groomParents: 'Edi Cahyono dan Sadpujiastuti',
   bride: 'Indriyani',
+  brideParents: 'Irfan Gani dan Linda',
   groomShort: 'Dio',
   brideShort: 'Indriyani',
 

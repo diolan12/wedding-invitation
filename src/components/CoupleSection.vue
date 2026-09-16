@@ -56,8 +56,8 @@ function fallback(event, src) {
             <p class="person-role">The Groom</p>
             <h3 class="person-name">{{ WEDDING.groom }}</h3>
             <p class="person-parents">
-              Putra dari Bapak &amp; Ibu<br />
-              Nama Orang Tua Mempelai Pria
+              Putra dari <br />
+              {{ WEDDING.groomParents }}
             </p>
           </div>
         </article>
@@ -77,8 +77,8 @@ function fallback(event, src) {
             <p class="person-role">The Bride</p>
             <h3 class="person-name">{{ WEDDING.bride }}</h3>
             <p class="person-parents">
-              Putri dari Bapak &amp; Ibu<br />
-              Nama Orang Tua Mempelai Wanita
+              Putri dari <br />
+              {{ WEDDING.brideParents }}
             </p>
           </div>
         </article>
