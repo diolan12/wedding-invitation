@@ -77,7 +77,9 @@ Semua data terpusat di **`src/config/wedding.js`**:
 ```js
 export const WEDDING = {
   groom: 'Dio Lantief Widoyoko',
+  groomParents: 'Edi Cahyono dan Sadpujiastuti',
   bride: 'Indriyani',
+  brideParents: 'Irfan Gani dan Linda',
   dateISO: '2026-12-23T10:00:00+07:00', // target countdown (WIB)
   akad: '10.00 WIB',
   location: {
@@ -90,10 +92,7 @@ export const WEDDING = {
 }
 ```
 
-Yang bisa diubah tanpa menyentuh komponen: nama, tanggal, waktu akad, lokasi, koordinat peta, foto, dan warna (di `src/style.css` / `:root`).
-
-> Nama orang tua sengaja **tidak diisi**. Ganti teks placeholder
-> "Nama Orang Tua Mempelai Pria/Wanita" pada `src/components/CoupleSection.vue`.
+Yang bisa diubah tanpa menyentuh komponen: nama, nama orang tua, tanggal, waktu akad, lokasi, koordinat peta, foto, dan warna (di `src/style.css` / `:root`).
 
 ## 5. Mengubah nama repository GitHub Pages
 
