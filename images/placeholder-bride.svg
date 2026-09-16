@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Placeholder photo Indriyani">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B2854"/>
+      <stop offset="1" stop-color="#071A3A"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E3CBA0"/>
+      <stop offset="1" stop-color="#C9AD70"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect x="26" y="26" width="748" height="948" fill="none" stroke="#C9AD70" stroke-opacity="0.5" stroke-width="2"/>
+  <rect x="42" y="42" width="716" height="916" fill="none" stroke="#C9AD70" stroke-opacity="0.22" stroke-width="1"/>
+  <g transform="translate(400,205)">
+    <path d="M0 -30 L9 -9 L30 0 L9 9 L0 30 L-9 9 L-30 0 L-9 -9 Z" fill="none" stroke="url(#gold)" stroke-opacity="0.55" stroke-width="1.6"/>
+  </g>
+  <text x="400" y="590" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="360" font-weight="400" fill="#F7F4ED" letter-spacing="4">I</text>
+  <text x="400" y="710" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#C9AD70" letter-spacing="10">INDRIYANI</text>
+  <line x1="320" y1="760" x2="480" y2="760" stroke="#C9AD70" stroke-opacity="0.45" stroke-width="1"/>
+  <text x="400" y="812" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="32" letter-spacing="13" fill="#F7F4ED" fill-opacity="0.8">THE BRIDE</text>
+</svg>
