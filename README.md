@@ -1,6 +1,6 @@
 # Wedding Invitation — Dio & Indriyani
 
-Undangan pernikahan online yang elegan, dibuat dengan **Vue 3 + Vite** (JavaScript murni), stap di-deploy ke **GitHub Pages** via `gh-pages`.
+Undangan pernikahan online yang elegan, dibuat dengan **Vue 3 + Vite** (JavaScript murni), siap di-deploy ke **GitHub Pages** via `gh-pages`.
 
 ```
 ├── public/
