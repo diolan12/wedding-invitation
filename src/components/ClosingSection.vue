@@ -46,7 +46,7 @@ import { WEDDING } from '../config/wedding.js'
           <span>{{ WEDDING.brideShort }}</span>
         </p>
 
-        <RouterLink v-if="false" class="generator-link" to="/generator">
+        <RouterLink class="generator-link" to="/generator">
           Generator Link Undangan →
         </RouterLink>
       </div>
