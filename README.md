@@ -31,6 +31,10 @@ Undangan pernikahan online yang elegan, dibuat dengan **Vue 3 + Vite** (JavaScri
 │       └── placeholder-*.svg      ← fallback otomatis jika foto belum ada
 ├── src/
 │   ├── components/                ← 1 komponen per bagian
+│   ├── views/
+│   │   ├── InvitationView.vue     ← undangan (route `/`)
+│   │   └── GeneratorView.vue      ← generator link tamu (route `/generator`)
+│   ├── router/index.js            ← routing history (clean URLs)
 │   ├── config/wedding.js          ← SEMUA data pernikahan ada di sini
 │   ├── utils/asset.js
 │   ├── App.vue
@@ -159,6 +163,31 @@ Catatan: karena `npm run dev` memakai base `/wedding-invitation/`, saat menjalan
 di lokal cukup buka `http://localhost:5173/?to=Andi%20Pratama` — Vue membaca
 `window.location.search` sehingga tetap berfungsi.
 
+## 9. Generator link undangan
+
+Ada halaman generator untuk membuat tautan tamu tanpa menyusun URL secara manual.
+Buka:
+
+```text
+http://localhost:5173/generator                     (lokal)
+https://username.github.io/wedding-invitation/generator   (produksi)
+```
+
+Di halaman tersebut: ketik nama tamu → tautan langsung dibuat → klik **Salin Link**
+→ bagikan. Tautan dibangun otomatis dari `VITE_BASE_URL` (origin) + base path
+Vite (`import.meta.env.BASE_URL`) + parameter `?to=`, sehingga selalu benar baik
+di lokal maupun di GitHub Pages.
+
+> Routing memakai **history mode** (`createWebHistory`) sehingga URL bersih tanpa
+> `#/`. Base router diambil dari `import.meta.env.BASE_URL` (Vite) — tak ada
+> hash yang ditambahkan otomatis pada pemuatan awal, dan link tamu `?to=` tetap
+> berfungsi karena dibaca dari `window.location.search`.
+>
+> **Catatan GitHub Pages:** history mode butuh *server rewrite* untuk deep link
+> langsung (mis. buka `/generator` lalu *refresh*) karena GitHub Pages hanya
+> menyajikan file statis. Karena itu dibutuhkan file `404.html` di root yang
+> me-redirect ke `index.html` (lihat bagian _Deploy_ di atas).
+
 ---
 
 ### Struktur komponen
@@ -174,3 +203,4 @@ di lokal cukup buka `http://localhost:5173/?to=Andi%20Pratama` — Vue membaca
 | Hitung Mundur     | `CountdownSection.vue`  |
 | Nama Tamu         | `GuestSection.vue`      |
 | Penutup           | `ClosingSection.vue`    |
+| Generator Link    | `GeneratorView.vue`     |

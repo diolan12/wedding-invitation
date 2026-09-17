@@ -15,11 +15,7 @@ import { WEDDING } from '../config/wedding.js'
             <circle cx="60" cy="60" r="34" stroke="currentColor" stroke-width="0.4" opacity="0.18" />
             <path
               d="M60 8 L65 27 L84 22 L74 41 L93 51 L74 61 L84 80 L65 75 L60 94 L55 75 L36 80 L46 61 L27 51 L46 41 L36 22 L55 27 Z"
-              stroke="currentColor"
-              stroke-width="0.4"
-              fill="none"
-              opacity="0.2"
-            />
+              stroke="currentColor" stroke-width="0.4" fill="none" opacity="0.2" />
           </svg>
         </div>
 
@@ -49,6 +45,10 @@ import { WEDDING } from '../config/wedding.js'
           <span class="amp">&amp;</span>
           <span>{{ WEDDING.brideShort }}</span>
         </p>
+
+        <RouterLink v-if="false" class="generator-link" to="/generator">
+          Generator Link Undangan →
+        </RouterLink>
       </div>
     </div>
   </section>
@@ -141,5 +141,22 @@ import { WEDDING } from '../config/wedding.js'
   font-size: 0.6em;
   color: var(--gold);
   transform: translateY(-0.05em);
+}
+
+.generator-link {
+  display: inline-block;
+  margin-top: 2.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(201, 173, 112, 0.35);
+  padding-bottom: 0.3rem;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.generator-link:hover {
+  color: var(--gold-light);
+  border-color: var(--gold);
 }
 </style>
